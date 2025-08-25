@@ -1,0 +1,11 @@
+# macOS 系統檔
+.DS_Store
+
+# Xcode 編譯暫存檔
+build/
+DerivedData/
+
+# Xcode 使用者個人設定
+xcuserdata/
+*.xcuserstate
+

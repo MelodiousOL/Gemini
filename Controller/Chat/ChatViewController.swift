@@ -1,0 +1,81 @@
+//
+//  ChatViewController.swift
+//  Gemini
+//
+//  Created by 黃盈雅 on 2025/8/20.
+//
+
+import UIKit
+
+class ChatViewController: UIViewController {
+
+    
+    // MARK: - IBOutlet
+
+    @IBOutlet weak var vToolBar: UIView!
+    @IBOutlet weak var btnMenu: UIBarButtonItem!
+    @IBOutlet weak var btnSend: UIButton!
+    @IBOutlet weak var navbChat: UINavigationBar!
+    @IBOutlet weak var txfText: UITextField!
+    // MARK: - Property
+    
+    // Delegate 協定
+//    weak var delegate: ChatViewControllerDelegate?
+    
+    // MARK: - LifeCycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // 隱藏預設返回按鈕
+        self.navigationItem.hidesBackButton = true
+        
+        // 設定 NavigationBar 隱藏底線
+        navbChat.setBackgroundImage(UIImage(), for: .default)
+        navbChat.shadowImage = UIImage()
+        navbChat.isTranslucent = false
+        
+        // 設定邊框
+        vToolBar.layer.borderColor = UIColor.lightGray.cgColor
+        vToolBar.layer.borderWidth = 1.0
+        vToolBar.layer.cornerRadius = 25.0  // 如果要圓角
+        vToolBar.layer.masksToBounds = true
+        
+        // 監聽輸入框文字改變
+        txfText.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
+        updateSendButtonIcon() // 初始狀態
+    }
+
+    // MARK: - UI Settings
+
+    // MARK: - IBAction
+
+    @IBAction func textFieldDidChange(_ sender: Any) {
+        updateSendButtonIcon()
+    }
+    
+    @IBAction func BackMenu(_ sender: UIBarButtonItem) {
+        print("按下")
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func sendMessage(_ sender: UIButton) {
+        guard let text = txfText.text, !text.isEmpty else { return }
+        // 執行送訊息邏輯
+        txfText.text = ""
+        print("Sending: \(text)")
+    }
+    // MARK: - Function
+    
+    private func updateSendButtonIcon() {
+        if let text = txfText.text, !text.isEmpty {
+            // 有文字 → 顯示傳送圖示
+            btnSend.setImage(UIImage(systemName: "arrowshape.up.circle.fill"), for: .normal)
+        } else {
+            // 沒文字 → 顯示語音圖示
+            btnSend.setImage(UIImage(systemName: "waveform.circle"), for: .normal)
+        }
+    }
+}
+// MARK: - Extensions
