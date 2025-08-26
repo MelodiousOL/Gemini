@@ -14,7 +14,6 @@ protocol UpdateTitleDelegate: AnyObject {
 class MainViewController: UIViewController {
 
     // MARK: - IBOutlet
-
     
     @IBOutlet weak var tbvMenu: UITableView!
     
@@ -47,24 +46,25 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
-    //
+    // 設定 cell 數量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     // 設計 cell 外觀
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as! MainTableViewCell
-        cell.textLabel?.text = "Chat"
-        cell.imageView?.image = UIImage(systemName: "ellipsis.message.fill")
-        cell.imageView?.tintColor = .systemBlue
-        // 顯示右側灰色箭頭
-        cell.accessoryType = .disclosureIndicator
+        cell.textLabel?.text = "Chat" // cell 文字
+        cell.imageView?.image = UIImage(systemName: "ellipsis.message.fill") // cell 圖示
+        cell.imageView?.tintColor = .systemBlue // cell 圖示顏色
+        cell.accessoryType = .disclosureIndicator // 顯示右側灰色箭頭
         return cell
     }
     
     // 設計 cell 點擊事件
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         // 點擊 Cell 跳轉到 ChatViewController
         tableView.deselectRow(at: indexPath, animated: true)
         let chatVC = ChatViewController()

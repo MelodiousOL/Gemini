@@ -69,17 +69,27 @@ class ChatViewController: UIViewController {
     // 傳送訊息
     @IBAction func sendMessage(_ sender: UIButton) {
         guard let text = txfText.text, !text.isEmpty else { return }
-        // 執行送訊息邏輯
+        
+        // 執行傳送訊息邏輯
         txfText.text = ""
+        updateSendButtonIcon()
+        scrollToBottom()
         print("Sending: \(text)")
         
-        // 1. 使用者訊息加入 messages
+        // 使用者訊息加入 messages
         let userMessage = ChatMessage(text: text, isUser: true)
         messages.append(userMessage)
         tbvChat.reloadData()
 
-        // 2. 呼叫 Gemini API 模擬回應
-        getGeminiResponse(for: text)
+        // 呼叫 Gemini API
+        NetworkManager.getGeminiResponse(for: text) { [weak self] responseText in
+            DispatchQueue.main.async {
+                let geminiMessage = ChatMessage(text: responseText, isUser: false)
+                self?.messages.append(geminiMessage)
+                self?.tbvChat.reloadData()
+                self?.scrollToBottom()
+            }
+        }
     }
     // MARK: - Function
     
@@ -94,14 +104,11 @@ class ChatViewController: UIViewController {
         }
     }
     
-    // 模擬 Gemini 回應
-    func getGeminiResponse(for userInput: String) {
-        // 模擬 Gemini 回答（之後會接 API）
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
-            let geminiMessage = ChatMessage(text: "這是 Gemini 對「\(userInput)」的回應", isUser: false)
-            self.messages.append(geminiMessage)
-            self.tbvChat.reloadData()
-        }
+    // 自動滑動至當前訊息
+    private func scrollToBottom() {
+        guard messages.count > 0 else { return }
+        let indexPath = IndexPath(row: messages.count - 1, section: 0)
+        tbvChat.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 }
 // MARK: - Extensions
