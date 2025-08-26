@@ -21,6 +21,9 @@ class ChatViewController: UIViewController {
     
     var messages: [ChatMessage] = []
     
+    var isResponding = false
+    var currentTask: URLSessionDataTask?
+    
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
@@ -68,9 +71,18 @@ class ChatViewController: UIViewController {
     
     // 傳送訊息
     @IBAction func sendMessage(_ sender: UIButton) {
-        guard let text = txfText.text, !text.isEmpty else { return }
         
-        // 執行傳送訊息邏輯
+        // 如果正在回覆 → 變成「中斷」
+        if isResponding {
+            currentTask?.cancel()
+            isResponding = false
+            updateSendButtonIcon()
+            print("sendMessage 中斷")
+            return
+        }
+        
+        // 傳送模式
+        guard let text = txfText.text, !text.isEmpty else { return }
         txfText.text = ""
         updateSendButtonIcon()
         scrollToBottom()
@@ -80,14 +92,22 @@ class ChatViewController: UIViewController {
         let userMessage = ChatMessage(text: text, isUser: true)
         messages.append(userMessage)
         tbvChat.reloadData()
+        
+        // 進入回覆中狀態你好拗
+        isResponding = true
+        updateSendButtonIcon()
 
         // 呼叫 Gemini API
-        NetworkManager.getGeminiResponse(for: text) { [weak self] responseText in
+        currentTask = NetworkManager.getGeminiResponse(for: text) { [weak self] responseText in
             DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.isResponding = false
+                self.updateSendButtonIcon()
+                
                 let geminiMessage = ChatMessage(text: responseText, isUser: false)
-                self?.messages.append(geminiMessage)
-                self?.tbvChat.reloadData()
-                self?.scrollToBottom()
+                self.messages.append(geminiMessage)
+                self.tbvChat.reloadData()
+                self.scrollToBottom()
             }
         }
     }
@@ -95,11 +115,14 @@ class ChatViewController: UIViewController {
     
     // 改變傳送按鈕圖示
     private func updateSendButtonIcon() {
-        if let text = txfText.text, !text.isEmpty {
-            // 有文字 → 顯示傳送圖示
+        if isResponding {
+                // 回覆中 → 顯示中斷圖示
+            btnSend.setImage(UIImage(systemName: "stop.circle.fill"), for: .normal)
+        } else if let text = txfText.text, !text.isEmpty {
+            // 有文字 → 傳送
             btnSend.setImage(UIImage(systemName: "arrowshape.up.circle.fill"), for: .normal)
         } else {
-            // 沒文字 → 顯示語音圖示
+            // 無文字 → 語音
             btnSend.setImage(UIImage(systemName: "waveform.circle"), for: .normal)
         }
     }

@@ -19,30 +19,28 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gemini AI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPq-l1-KXS">
-                    <rect key="frame" x="16" y="92.666666666666671" width="126" height="34"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="one-YL-GBD">
                     <rect key="frame" x="16" y="141.66666666666666" width="361" height="44"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Gemini AI" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qPq-l1-KXS">
+                    <rect key="frame" x="16" y="92.666666666666671" width="361" height="34"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="28"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.94901967050000002" green="0.94901967050000002" blue="0.96470588450000005" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
-                <constraint firstItem="one-YL-GBD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="6Ze-ij-vHw"/>
-                <constraint firstItem="one-YL-GBD" firstAttribute="leading" secondItem="qPq-l1-KXS" secondAttribute="leading" id="CRz-FC-Q3j"/>
-                <constraint firstItem="qPq-l1-KXS" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.320611" id="HuT-Ta-RsA"/>
-                <constraint firstItem="one-YL-GBD" firstAttribute="top" secondItem="qPq-l1-KXS" secondAttribute="bottom" constant="15" id="JlR-3K-rkM"/>
-                <constraint firstItem="qPq-l1-KXS" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" multiplier="0.4" id="OEs-CB-6UJ"/>
-                <constraint firstItem="one-YL-GBD" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.918575" id="XkG-UP-9fE"/>
-                <constraint firstItem="one-YL-GBD" firstAttribute="height" secondItem="qPq-l1-KXS" secondAttribute="height" multiplier="1.29412" id="YZK-al-pcS"/>
-                <constraint firstItem="qPq-l1-KXS" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="0.25" id="Z0M-zn-xh0"/>
-                <constraint firstItem="qPq-l1-KXS" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0447958" id="jtL-Qu-AaU"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="one-YL-GBD" secondAttribute="trailing" constant="16" id="p7F-6S-GQU"/>
+                <constraint firstItem="one-YL-GBD" firstAttribute="top" secondItem="qPq-l1-KXS" secondAttribute="bottom" constant="14.999999999999986" id="Dfd-3b-4uk"/>
+                <constraint firstItem="one-YL-GBD" firstAttribute="height" secondItem="qPq-l1-KXS" secondAttribute="height" multiplier="1.29412" id="Kb0-pF-F6p"/>
+                <constraint firstItem="one-YL-GBD" firstAttribute="width" secondItem="qPq-l1-KXS" secondAttribute="width" id="VOF-bM-i8f"/>
+                <constraint firstItem="qPq-l1-KXS" firstAttribute="width" secondItem="fnl-2z-Ty3" secondAttribute="width" multiplier="0.918575" id="ad3-2P-sJX"/>
+                <constraint firstItem="one-YL-GBD" firstAttribute="leading" secondItem="qPq-l1-KXS" secondAttribute="leading" id="jFC-ZC-6Ng"/>
+                <constraint firstItem="qPq-l1-KXS" firstAttribute="centerY" secondItem="fnl-2z-Ty3" secondAttribute="centerY" multiplier="0.25" id="jt4-MZ-xXv"/>
+                <constraint firstItem="qPq-l1-KXS" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="rhg-OG-2DY"/>
+                <constraint firstItem="qPq-l1-KXS" firstAttribute="height" secondItem="fnl-2z-Ty3" secondAttribute="height" multiplier="0.0447958" id="wF0-Y1-JF1"/>
             </constraints>
             <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
