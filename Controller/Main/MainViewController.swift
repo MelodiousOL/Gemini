@@ -15,45 +15,30 @@ class MainViewController: UIViewController {
 
     // MARK: - IBOutlet
 
-    @IBOutlet weak var navbHome: UINavigationBar!
-    @IBOutlet weak var btnBack: UIBarButtonItem!
-    @IBOutlet weak var btnAdd: UIBarButtonItem!
-    @IBOutlet weak var tbvChat: UITableView!
+    
+    @IBOutlet weak var tbvMenu: UITableView!
     
     // MARK: - Property
     
-    // 資料陣列，存放每個 Cell 的標題
-    var items: [String] = []
-
     // MARK: - LifeCycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // 設定 TableView 資料來源與代理
-        tbvChat.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: MainTableViewCell.identifier)
-        tbvChat.dataSource = self
-        tbvChat.delegate = self
-        
-        // 設定 NavigationBar 隱藏底線
-        navbHome.setBackgroundImage(UIImage(), for: .default)
-        navbHome.shadowImage = UIImage()
-        navbHome.isTranslucent = false
+        tbvMenu.register(UINib(nibName: "MainTableViewCell", bundle: nil), forCellReuseIdentifier: MainTableViewCell.identifier)
+        tbvMenu.dataSource = self
+        tbvMenu.delegate = self
+
+        tbvMenu.layer.cornerRadius = 8.0 // 圓角
+        tbvMenu.isScrollEnabled = false  // 禁止滑動
+        tbvMenu.separatorStyle = .none // 隱藏分隔線
+
     }
 
     // MARK: - UI Settings
 
     // MARK: - IBAction
-    @IBAction func addNewItem(_ sender: UIBarButtonItem) {
-        let chatVC = ChatViewController()
-        chatVC.navigationItem.hidesBackButton = true
-        self.navigationController?.pushViewController(chatVC, animated: true)
-    }
-    @IBAction func didTapBack(_ sender: UIBarButtonItem) {
-        let chatVC = ChatViewController()
-        chatVC.navigationItem.hidesBackButton = true
-        self.navigationController?.pushViewController(chatVC, animated: true)
-    }
     
     // MARK: - Function
 
@@ -62,21 +47,28 @@ class MainViewController: UIViewController {
 
 extension MainViewController: UITableViewDataSource, UITableViewDelegate {
 
+    //
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return items.count  // Cell 數量等於資料陣列數量
+        return 1
     }
-
+    
+    // 設計 cell 外觀
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MainTableViewCell", for: indexPath) as! MainTableViewCell
-        cell.lbTitle.text = items[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: MainTableViewCell.identifier, for: indexPath) as! MainTableViewCell
+        cell.textLabel?.text = "Chat"
+        cell.imageView?.image = UIImage(systemName: "ellipsis.message.fill")
+        cell.imageView?.tintColor = .systemBlue
+        // 顯示右側灰色箭頭
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
-
+    
+    // 設計 cell 點擊事件
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        // 點擊 Cell 跳轉到 ChatViewController
         tableView.deselectRow(at: indexPath, animated: true)
-
-        // TODO: 準備跳轉到子畫面
-        print("點擊了 \(items[indexPath.row])")
+        let chatVC = ChatViewController()
+        chatVC.navigationItem.hidesBackButton = true
+        self.navigationController?.pushViewController(chatVC, animated: true)
     }
 }

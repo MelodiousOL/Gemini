@@ -8,11 +8,9 @@
 import UIKit
 
 class MainTableViewCell: UITableViewCell {
-
     
     // MARK: - IBOutlet
 
-    @IBOutlet weak var lbTitle: UILabel!
     // MARK: - Property
     
     static let identifier = "MainTableViewCell"
