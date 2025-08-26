@@ -54,16 +54,19 @@ class ChatViewController: UIViewController {
     // MARK: - UI Settings
 
     // MARK: - IBAction
-
+    
+    // 監聽 txf 狀態改變
     @IBAction func textFieldDidChange(_ sender: Any) {
         updateSendButtonIcon()
     }
     
+    // 選單按鈕
     @IBAction func BackMenu(_ sender: UIBarButtonItem) {
         print("按下")
         self.navigationController?.popViewController(animated: true)
     }
     
+    // 傳送訊息
     @IBAction func sendMessage(_ sender: UIButton) {
         guard let text = txfText.text, !text.isEmpty else { return }
         // 執行送訊息邏輯
@@ -91,6 +94,7 @@ class ChatViewController: UIViewController {
         }
     }
     
+    // 模擬 Gemini 回應
     func getGeminiResponse(for userInput: String) {
         // 模擬 Gemini 回答（之後會接 API）
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
@@ -104,10 +108,12 @@ class ChatViewController: UIViewController {
 
 extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
     
+    // 回傳 Cell 數量
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
 
+    // 設計 cell 外觀
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let message = messages[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: ChatTableViewCell.identifier, for: indexPath) as! ChatTableViewCell

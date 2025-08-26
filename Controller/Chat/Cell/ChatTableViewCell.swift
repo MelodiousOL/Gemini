@@ -35,15 +35,14 @@ class ChatTableViewCell: UITableViewCell {
 
     // MARK: - Function
     
+    // 決定訊息靠左靠右
     func configure(with message: ChatMessage) {
         lbMessage.text = message.text
         if message.isUser {
             // 使用者訊息 → 靠右
-//            lbMessage.textColor = .black
             lbMessage.textAlignment = .right
         } else {
             // Gemini 訊息 → 靠左
-//            lbMessage.textColor = .black
             lbMessage.textAlignment = .left
         }
     }
